@@ -48,16 +48,16 @@ class Node:
     def serialize(self):
         serialization = {}
         if self._left == None and self._right == None:
-            serialization[self._label] = {'left':'None', 'right':'None'}
+            serialization.update({'name':self._label})
         elif self._left == None:
             right = self._right.serialize()
-            serialization[self._label] = {'left': None, 'right':right}
+            serialization.update({'name': self._label, 'children':[right]})
         elif self._right == None:
             left = self._left.serialize()
-            serialization[self._label] = {'left':left, 'right':'None'}
+            serialization.update({'name': self._label, 'children': [left]})
         else:
             left = self._left.serialize()
             right = self._right.serialize()
-            serialization[self._label] = {'left':left, 'right':right}
+            serialization.update({'name': self._label,'children': [left, right]})
 
         return serialization

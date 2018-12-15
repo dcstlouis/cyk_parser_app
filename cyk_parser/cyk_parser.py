@@ -137,7 +137,7 @@ class CYKParser:
 
     def generate_cyk_table(self, s):
         sentence = s
-        # sentence = s.split()
+        sentence = s.split()
         n = len(sentence)
 
         # Start by filling table with empty lists
@@ -182,20 +182,28 @@ class CYKParser:
                 symbol = cell.symbol
 
                 # left child
-                left_label = symbol[0]
+                if symbol.isupper():
+                    # symbol is a variable
+                    left_label = symbol[0]
+                else:
+                    # symbol is a terminal
+                    left_label = symbol
                 if cell.left != None:
                     left = self.build_tree(table, left_label, cell.left[0], cell.left[1])
                 else:
                     left = Node(label=left_label)
 
                 # right child
-                if len(symbol) == 2:
+                if symbol.isupper():
+                    # symbol is a variable
                     right_label = symbol[1]
                     if cell.right != None:
                         right = self.build_tree(table, right_label, cell.right[0], cell.right[1])
                     else:
                         right = Node(label=right_label)
                 else:
+                    # symbol is a terminal
+                    # (and shouldn't have a right child)
                     right = None
 
                 root = Node(label=label, left=left, right=right)

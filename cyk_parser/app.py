@@ -11,10 +11,11 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app)
 
+@app.route('/', methods=['GET'])
 @app.route('/parse', methods=['GET'])
 def parse():
-    parser = CYKParser('grammars/example.txt')
-    table = parser.generate_cyk_table("baaba")
+    parser = CYKParser('grammars/english.txt')
+    table = parser.generate_cyk_table("amy ate fish for dinner on tuesday")
     root = parser.build_tree(table, 'S', row=len(table)-1, col=0)
     tree = Tree(root)
     return jsonify(tree.serialize())
