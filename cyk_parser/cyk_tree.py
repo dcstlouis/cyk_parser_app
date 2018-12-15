@@ -1,5 +1,5 @@
 import itertools
-from parse_tree import Node, Tree
+from .parse_tree import Node, Tree
 
 class Cell:
 
