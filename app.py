@@ -20,7 +20,8 @@ def get_tree(sentence):
     table = parser.generate_cyk_table(sentence)
     root = parser.build_tree(table, 'S', row=len(table)-1, col=0)
     if root is None:
-        print(f"Ungrammatical sentence: {sentence}")
+        error = {"error": "Ungrammatical sentence"}
+        return jsonify(error)
     tree = Tree(root)
     data = tree.serialize()
     return jsonify(data)
